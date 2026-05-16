@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoraMente - Apoio na Pedagogia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Cores e Definições Gerais */
+        :root {
+            --coral-principal: #FF8A7A;
+            --coral-claro: #FFF0ED;
+            --coral-escuro: #E06F60;
+            --texto-escuro: #4A3E3D;
+            --branco: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            color: var(--texto-escuro);
+            background-color: var(--branco);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Animação de Surgimento (Scroll) */
+        .animar {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .animar.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cabeçalho / Menu */
+        header {
+            background-color: var(--branco);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(255, 138, 122, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--coral-principal);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--texto-escuro);
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--coral-principal);
+        }
+
+        .icone-carrinho {
+            position: relative;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--texto-escuro);
+        }
+
+        .contador-carrinho {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--coral-principal);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+        }
+
+        /* Seção Boas-Vindas (Hero) */
+        .hero {
+            background-color: var(--coral-claro);
+            padding: 160px 20px 100px 20px;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--coral-escuro);
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .btn-principal {
+            background-color: var(--coral-principal);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 138, 122, 0.3);
+        }
+
+        .btn-principal:hover {
+            background-color: var(--coral-escuro);
+            transform: scale(1.05);
+        }
+
+        /* Seções Gerais */
+        section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .titulo-secao {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--coral-escuro);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .titulo-secao::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--coral-principal);
+            margin: 10px auto 0 auto;
+        }
+
+        /* História */
+        .historia-texto p {
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 1rem;
+            color: var(--texto-escuro);
+        }
+
+        /* Produtos */
+        .vitrine {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .card-produto {
+            background: var(--branco);
+            border: 1px solid var(--coral-claro);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 138, 122, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .card-produto:hover {
+            transform: translateY(-5px);
+        }
+
+        .tag-produto {
+            background-color: var(--coral-claro);
+            color: var(--coral-escuro);
+            font-size: 0.8rem;
+            padding: 5px 15px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .preco {
+            font-size: 1.5rem;
+            color: var(--coral-escuro);
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .detalhes-produto {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .detalhes-produto li {
+            margin-bottom: 8px;
+            list-style-type: '🌸 ';
+        }
+
+        /* Sobre Mim */
+        .sobre-container {
+            background-color: var(--coral-claro);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .sobre-container p {
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Contato */
+        .contato-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .link-contato {
+            text-decoration: none;
+            color: var(--texto-escuro);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        .link-contato:hover {
+            color: var(--coral-principal);
+        }
+
+        /* Lateral do Carrinho (Modal/Sidebar) */
+        .carrinho-lateral {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: var(--branco);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1100;
+            transition: right 0.4s ease;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carrinho-lateral.aberto {
+            right: 0;
+        }
+
+        .fechar-carrinho {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--texto-escuro);
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .itens-carrinho {
+            margin-top: 30px;
+            flex-grow: 1;
+        }
+
+        .item-no-carrinho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--coral-claro);
+            padding: 15px 0;
+        }
+
+        .remover-item {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .total-carrinho {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Área do PIX */
+        .area-pix {
+            background-color: var(--coral-claro);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .area-pix strong {
+            color: var(--coral-escuro);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--coral-claro);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            font-size: 0.8rem;
+        }
+
+        /* Responsividade Básica */
+        @media (max-width: 600px) {
+            header { padding: 20px; }
+            .hero h2 { font-size: 2rem; }
+            nav a { margin-left: 10px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">CoraMente</a>
+        <nav>
+            <a href="#historia">História</a>
+            <a href="#produtos">Material</a>
+            <a href="#sobre">Sobre Mim</a>
+            <button class="icone-carrinho" onclick="toggleCarrinho()">
+                🛒 <span class="contador-carrinho" id="cont-carrinho">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h2 class="animar">Aprender com o coração e com a mente é o que faz a diferença.</h2>
+        <p class="animar">Direcionamento, apoio e ferramentas para tornar a sua jornada na Pedagogia muito mais leve e organizada.</p>
+        <a href="#produtos" class="btn-principal animar">Conhecer o Guia</a>
+    </div>
+
+    <section id="historia" class="animar">
+        <h2 class="titulo-secao">A História da CoraMente</h2>
+        <div class="historia-texto">
+            <p>A CoraMente nasceu durante minha jornada na faculdade de Pedagogia.</p>
+            <p>Ao longo dos estudos e das experiências acadêmicas, comecei a perceber algo em comum entre muitos colegas: a dificuldade em acompanhar atividades, organizar a rotina, compreender conteúdos e utilizar ferramentas digitais necessárias para a vida acadêmica.</p>
+            <p>Muitos alunos tinham potencial, vontade de aprender e dedicação, mas acabavam se sentindo perdidos diante de tantos prazos, tarefas e informações.</p>
+            <p>Foi então que entendi que estudar vai muito além de apenas assistir aulas. É preciso ter organização, direcionamento, apoio e ferramentas que tornem o aprendizado mais leve e acessível.</p>
+            <p>Assim surgiu a CoraMente: um espaço criado para ajudar estudantes — especialmente da área da educação — a estudarem com mais clareza, praticidade e confiança.</p>
+            <p>Aqui, cada ebook, planner, cronograma, planilha e material digital foi pensado para facilitar a rotina acadêmica e transformar o aprendizado em algo mais simples, organizado e possível.</p>
+        </div>
+    </section>
+
+    <section id="produtos" class="animar">
+        <h2 class="titulo-secao">Nossos Materiais</h2>
+        <div class="vitrine">
+            <div class="card-produto">
+                <span class="tag-produto">E-book Digital (PDF)</span>
+                <h3>Guia de Estudos: Educação e Diversidade</h3>
+                <p style="font-size: 0.9rem; color: #7a6b6a; margin-top: 5px;">Focado na matéria da Uniasselvi</p>
+                <p class="preco">R$ 25,00</p>
+                <p>Um material objetivo, prático e muito completo para ajudar você a compreender perfeitamente a matéria sem se sentir perdida.</p>
+                <ul class="detalhes-produto">
+                    <li>50 Questões gabaritadas para treino;</li>
+                    <li>Mapas mentais ilustrativos e explicativos;</li>
+                    <li>Resumos detalhados e fáceis de entender.</li>
+                </ul>
+                <button class="btn-principal" onclick="adicionarAoCarrinho('Guia de Estudos: Educação e Diversidade', 25.00)">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="animar">
+        <h2 class="titulo-secao">Quem está por trás</h2>
+        <div class="sobre-container">
+            <p>Olá, me chamo <strong>Janikelle</strong>, sou uma estudante de pedagogia que criou este site para ajudar mulheres em sua jornada de aprendizado, auxiliando e guiando elas até o seu tão sonhado diploma, tudo de forma leve, acolhedora, criativa e eficiente.</p>
+        </div>
+    </section>
+
+    <section id="contato" class="animar">
+        <h2 class="titulo-secao">Contato & Redes</h2>
+        <div class="contato-links">
+            <a href="https://www.instagram.com/lunaraeveill/" target="_blank" class="link-contato">📷 @lunaraeveill</a>
+            <a href="https://wa.me/5579996292081" target="_blank" class="link-contato">💬 (79) 99629-2081</a>
+        </div>
+    </section>
+
+    <div class="carrinho-lateral" id="carrinho-aba">
+        <button class="fechar-carrinho" onclick="toggleCarrinho()">✕</button>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--coral-escuro);">Meu Carrinho</h3>
+        
+        <div class="itens-carrinho" id="lista-carrinho">
+            <p style="color: #9c8c8b; font-style: italic;">Seu carrinho está vazio...</p>
+        </div>
+
+        <div class="total-carrinho">
+            <span>Total:</span>
+            <span id="valor-total">R$ 0,00</span>
+        </div>
+
+        <button class="btn-principal" style="width: 100%;" onclick="finalizarCompra()">Finalizar e Pagar</button>
+        
+        <div class="area-pix" id="instrucoes-pix">
+            <p><strong>Forma de Pagamento Única: PIX</strong></p>
+            <p style="margin: 8px 0;">Chave PIX (Telefone):<br><strong>79996292081</strong></p>
+            <p style="font-size: 0.8rem; color: #7a6b6a;">Após realizar o pagamento de <span id="pix-valor"></span>, envie o comprovante para o nosso WhatsApp (79) 99629-2081 para receber seu PDF!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CoraMente - Por Janikelle. Feito com amor para futuras pedagogas. 🌸</p>
+    </footer>
+
+    <script>
+        // Sistema do Carrinho de Compras
+        let carrinho = [];
+
+        function toggleCarrinho() {
+            document.getElementById('carrinho-aba').classList.toggle('aberto');
+        }
+
+        function adicionarAoCarrinho(nome, preco) {
+            // Como é um produto digital único, evitamos duplicados simples no carrinho
+            if(carrinho.some(item => item.nome === nome)) {
+                alert("Este material já está no seu carrinho!");
+                return;
+            }
+            carrinho.push({ nome, preco });
+            atualizarInterfaceCarrinho();
+            toggleCarrinho(); // Abre para mostrar que foi adicionado
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarInterfaceCarrinho();
+            document.getElementById('instrucoes-pix').style.display = 'none';
+        }
+
+        function atualizarInterfaceCarrinho() {
+            const lista = document.getElementById('lista-carrinho');
+            const cont = document.getElementById('cont-carrinho');
+            const total = document.getElementById('valor-total');
+            
+            cont.innerText = carrinho.length;
+            
+            if (carrinho.length === 0) {
+                lista.innerHTML = '<p style="color: #9c8c8b; font-style: italic;">Seu carrinho está vazio...</p>';
+                total.innerText = 'R$ 0,00';
+                return;
+            }
+
+            lista.innerHTML = '';
+            let soma = 0;
+            
+            carrinho.forEach((item, index) => {
+                soma += item.preco;
+                lista.innerHTML += `
+                    <div class="item-no-carrinho">
+                        <div>
+                            <p style="font-weight: bold; font-size: 0.9rem;">${item.nome}</p>
+                            <p style="color: var(--coral-escuro); font-size: 0.85rem;">R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+                        </div>
+                        <button class="remover-item" onclick="removerDoCarrinho(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            total.innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
+        }
+
+        function finalizarCompra() {
+            if(carrinho.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+            const soma = carrinho.reduce((total, item) => total + item.preco, 0);
+            document.getElementById('pix-valor').innerText = `R$ ${soma.toFixed(2).replace('.', ',')}`;
+            document.getElementById('instrucoes-pix').style.display = 'block';
+        }
+
+        // Sistema de Animação Suave ao Rolar a Tela (Scroll Animation)
+        const elementosParaAnimar = document.querySelectorAll('.animar');
+
+        function checarScroll() {
+            const gatilho = window.innerHeight * 0.85;
+            elementosParaAnimar.forEach(elemento => {
+                const topoElemento = elemento.getBoundingClientRect().top;
+                if (topoElemento < gatilho) {
+                    elemento.classList.add('visivel');
+                }
+            });
+        }
+
+        // Executa uma vez no início e sempre que rolar a página
+        window.addEventListener('scroll', checarScroll);
+        window.addEventListener('load', checarScroll);
+    </script>
+</body>
+</html>
